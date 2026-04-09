@@ -2,7 +2,7 @@ input@ {
   lib,
   developer,
   ...
-};
+}:
 
 let 
   config = input.config.os.hardware.audio;

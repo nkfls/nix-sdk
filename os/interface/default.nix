@@ -5,7 +5,7 @@ input@ {
 }:
 
 let
-  config = input.config.os.interfaces;
+  config = input.config.os.interface;
 
 in
 {

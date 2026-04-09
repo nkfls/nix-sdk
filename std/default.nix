@@ -1,4 +1,4 @@
-input@{...};
+input@{ ... }:
 let
   config = input.config.std;
 in

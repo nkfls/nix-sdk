@@ -1,7 +1,6 @@
 input @ {  
   lib,
   pkgs,
-  developer,
   machine,
   ...
 }:

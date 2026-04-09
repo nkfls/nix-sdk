@@ -17,7 +17,7 @@ in
       };
     };
 
-  services.greetd = {
+    services.greetd = {
       enable = true;
 
       settings = {

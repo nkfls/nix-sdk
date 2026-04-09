@@ -4,7 +4,7 @@ input @ {
   pkgs,
   developer,
   ...
-  };
+  }:
   let
   config = input.config.os.environment;
 in
@@ -22,12 +22,12 @@ in
       };
 
       packages = lib.mkOption {
-        type = lib.types.listOf lib.types.packages;
+        type = lib.types.listOf lib.types.package;
         default = [];
       };
 
       libraries = lib.mkOption {
-        type = lib.types.listOf lib.types.packages;
+        type = lib.types.listOf lib.types.package;
         default = [];
       };
 
@@ -37,7 +37,7 @@ in
           default = developer.name;
         };
         groups = lib.mkOption {
-          type = lib.types.listOf lib.types.packages;
+          type = lib.types.listOf lib.types.package;
           default = []; 
         };
       };

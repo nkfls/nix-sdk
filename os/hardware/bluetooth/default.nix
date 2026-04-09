@@ -3,7 +3,7 @@ input@{
   pkgs,
   developer,
   ...
-};
+}:
 let
   config = input.config.os.hardware.bluetooth;
 in {

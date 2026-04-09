@@ -1,12 +1,12 @@
 input@ {
   lib,
   ...
-};
+}:
 let
   config = input.config.dev;
 in
 {
-  imports = [];
+  imports = [ ];
   
   options.dev = { };
 
