@@ -7,6 +7,9 @@ input @ {
 let
   config = input.config.os.hardware.network;
 in {
+
+  options.os.hardware.network.enable = lib.mkEnableOption "network config";
+
   options.os.hardware.network = {
     hostname = lib.mkOption {
       type = lib.types.str;
@@ -39,7 +42,7 @@ in {
     };
   };
   
-  config = {
+  config = lib.mkIf config.enable {
     networking = {
       hostName = config.hostname;
       useNetworkd = config.useNetworkd;
