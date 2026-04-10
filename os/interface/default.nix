@@ -30,5 +30,7 @@ in
         enable = true;
       };
     };
+
+    networking.firewall.trustedInterfaces = lib.mkIf config.tailscale.enable [ "tailscale0" ];
   };
 }
