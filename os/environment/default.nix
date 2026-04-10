@@ -4,12 +4,12 @@ input @ {
   pkgs,
   developer,
   ...
-  }:
+}:
 let
   config = input.config.os.environment;
   locale = config.i18n.locale;
 in
-  {
+{
   options.os.environment = {
     i18n = {
       timezone = lib.mkOption {
@@ -20,103 +20,104 @@ in
         type = lib.types.str;
         default = "en_NZ.UTF-8";
       };
+    };
 
-      packages = lib.mkOption {
-        type = lib.types.listOf lib.types.package;
-        default = [];
+    packages = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = [];
+    };
+
+    libraries = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = [];
+    };
+
+    user = {
+      name = lib.mkOption {
+        type = lib.types.str;
+        default = developer.name;
       };
-
-      libraries = lib.mkOption {
+      groups = lib.mkOption {
         type = lib.types.listOf lib.types.package;
-        default = [];
+        default = []; 
       };
+    };
+  };
 
-      user = {
-        name = lib.mkOption {
-          type = lib.types.str;
-          default = developer.name;
-        };
-        groups = lib.mkOption {
-          type = lib.types.listOf lib.types.package;
-          default = []; 
-        };
+  config = {
+    time = {
+      timeZone = config.i18n.timezone;
+    };
+
+    i18n = {
+      defaultLocale = locale;
+      extraLocaleSettings = {
+        LC_ADDRESS = locale;
+        LC_IDENTIFICATION = locale;
+        LC_MEASUREMENT = locale;
+        LC_MONETARY = locale;
+        LC_NAME = locale;
+        LC_NUMERIC = locale;
+        LC_PAPER = locale;
+        LC_TELEPHONE = locale;
+        LC_TIME = locale;
       };
     };
 
-    config = {
-      time = {
-        timeZone = config.i18n.timezone;
-      };
+    nix = {
+      nixPath = ["nixpkgs=${inputs.nipkgs}"];
+    };
 
-      i18n = {
-        defaultLocale = locale;
-        extraLocaleSettings = {
-          LC_ADDRESS = locale;
-          LC_IDENTIFICATION = locale;
-          LC_MEASUREMENT = locale;
-          LC_MONETARY = locale;
-          LC_NAME = locale;
-          LC_NUMERIC = locale;
-          LC_PAPER = locale;
-          LC_TELEPHONE = locale;
-          LC_TIME = locale;
-        };
-      };
+    environment = {
+      systemPackages = with pkgs;
+        [
+          curl
+          wget
+          git
+          zip
+          unzip
+          btop
+          tree
+          ripgrep
+          fd
+        ] 
+        ++ config.packages;
+      variables = 
+        {
+          EDITOR = "nvim";
+          VISUAL = "nvim";
+        }
+        // config.shell.variables;
+    };
 
-        nix = {
-          nixPath = ["nixpkgs=${inputs.nipkgs}"];
-        };
+    programs.nix-ld = {
+      enable = true;
 
-      environment = {
-        systemPackages = with pkgs;
-          [
-            curl
-            wget
-            git
-            zip
-            unzip
-            btop
-            tree
-            ripgrep
-            fd
-          ] 
-          ++ config.packages;
-        variables = 
-          {
-            EDITOR = "nvim";
-            VISUAL = "nvim";
-          }
-          // config.shell.variables;
-      };
+      libraries = with pkgs; [] ++ config.libraries;
+    };
 
-      programs.nix-ld = {
+    programs = {
+      zsh = {
         enable = true;
-
-        libraries = with pkgs; [] ++ config.libraries;
       };
 
-      programs = {
-        zsh = {
-          enable = true;
-        };
-
-        dconf = {
-          enable = true;
-        };
-      };
-
-      users = {
-        defaultUserShell = pkgs.zsh;
-
-        users.${config.user.name} = {
-          isNormalUser = true;
-
-          extraGroups = 
-            [
-              "wheel"
-            ]
-            ++ config.user.groups;
-        };
+      dconf = {
+        enable = true;
       };
     };
-  }
+
+    users = {
+      defaultUserShell = pkgs.zsh;
+
+      users.${config.user.name} = {
+        isNormalUser = true;
+
+        extraGroups = 
+          [
+            "wheel"
+          ]
+          ++ config.user.groups;
+      };
+    };
+  };
+}
