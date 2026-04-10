@@ -17,8 +17,7 @@ in
       };
       locale = lib.mkOption {
         type = lib.types.str;
-        default = "en_NZ.UTF-8"
-          };
+        default = "en_NZ.UTF-8";
       };
 
       packages = lib.mkOption {
