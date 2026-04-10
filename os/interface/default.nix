@@ -9,7 +9,10 @@ let
 
 in
 {
-  options.os.interface = { };
+  options.os.interface = {
+    hyprland.enable = lib.mkEnableOption "hyprland";
+    tailscale.enable = lib.mkEnableOption "tailscale";
+  };
 
   config = {
     programs = {
@@ -19,6 +22,12 @@ in
         xwayland = {
           enable = true;
         };
+      };
+    };
+
+    services = {
+      tailscale = {
+        enable = true;
       };
     };
   };
