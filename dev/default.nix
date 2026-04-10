@@ -23,6 +23,8 @@ in
         "--disable-network-policy"
       ];
     };
-    virtualization.docker.enable = lib.mkIf config.docker.enable true;
+    virtualisation.docker.enable = lib.mkIf config.docker.enable {
+      enable = true;
+    };
   };
 }
