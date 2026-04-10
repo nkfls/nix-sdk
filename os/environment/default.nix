@@ -5,8 +5,9 @@ input @ {
   developer,
   ...
   }:
-  let
+let
   config = input.config.os.environment;
+  locale = config.i18n.locale;
 in
   {
   options.os.environment = {
@@ -47,7 +48,7 @@ in
         timeZone = config.i18n.timezone;
       };
 
-      i18n = with config.i18n = {
+      i18n = {
         defaultLocale = locale;
         extraLocaleSettings = {
           LC_ADDRESS = locale;
