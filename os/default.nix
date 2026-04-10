@@ -1,4 +1,4 @@
-input@{ lib, ... };
+input@{ lib, ... }:
 
 let
   config = input.config.os;
