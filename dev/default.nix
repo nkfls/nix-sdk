@@ -9,8 +9,8 @@ in
   imports = [ ];
   
   options.dev = {
-    k3s.enable = lib.mknableOption "k3s";
-    docker.enable = lib.mknableOption "docker";
+    k3s.enable = lib.mkEnableOption "k3s";
+    docker.enable = lib.mkEnableOption "docker";
   };
 
   config  = {
