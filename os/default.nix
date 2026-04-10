@@ -15,7 +15,6 @@ in
   options.os = { };
 
   config = {
-    system.stateVersion = settings.state;
 
     nix = {
       settings = {
