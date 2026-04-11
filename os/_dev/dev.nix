@@ -107,7 +107,7 @@ in
         "github.com" = {
           hostname = "github.com";
           user = "git";
-          identityFile = config.age.secrets."ssh/nkfls-ed25519-primary".path;
+          identityFile = "/run/agenix/ssh/nkfls-ed25519-primary";
         };
       };
     };
