@@ -6,6 +6,7 @@ let
 in
 {
   imports = [
+    ./_dev
     ./cache
     ./environment
     ./hardware
