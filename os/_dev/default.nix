@@ -16,7 +16,7 @@ in
         useUserPackages = true;
         extraSpecialArgs = { inherit inputs developer machine; };
         users.${developer.name} = import ./dev.nix;
-      }
+      };
     })
   ];
   options.os._dev = { };
