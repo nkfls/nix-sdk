@@ -65,7 +65,7 @@ in
     };
 
     nix = {
-      nixPath = ["nixpkgs=${inputs.nipkgs}"];
+      nixPath = ["nixpkgs=${inputs.nixpkgs}"];
     };
 
     environment = {
