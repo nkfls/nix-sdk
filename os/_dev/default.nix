@@ -3,7 +3,7 @@ inputs,
 developer,
 machine,
  ...
-};
+}:
 let
   config = input.config.os._dev;
 in
