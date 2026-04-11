@@ -38,8 +38,15 @@ in
         default = developer.name;
       };
       groups = lib.mkOption {
-        type = lib.types.listOf lib.types.package;
+        type = lib.types.listOf lib.types.str;
         default = []; 
+      };
+    };
+
+    shell = {
+      variables = lib.mkOption {
+        type = lib.types.attrsOf lib.types.str;
+        default = {};
       };
     };
   };
